@@ -1,0 +1,32 @@
+---
+import { getCollection } from 'astro:content';
+const posts = (await getCollection('blog')).sort((a,b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const trending = posts.slice(0, 4);
+---
+
+<aside class="space-y-10">
+  <div>
+    <h3 class="text-lg font-bold border-l-4 border-blue-900 pl-3 mb-6 uppercase">Trending News</h3>
+    <div class="space-y-6">
+      {trending.map(post => (
+        <a href={`/posts/${post.slug}`} class="flex gap-4 group">
+          <img src={post.data.image} class="w-20 h-20 object-cover rounded bg-gray-200" alt="" />
+          <h4 class="text-sm font-bold leading-tight group-hover:text-blue-700 transition line-clamp-3">
+            {post.data.title}
+          </h4>
+        </a>
+      ))}
+    </div>
+  </div>
+
+  <div class="bg-blue-50 p-6 rounded-lg border border-blue-100 shadow-sm">
+    <h3 class="text-lg font-bold mb-4 uppercase">Contact Nagpur Mail</h3>
+    <form class="space-y-3">
+      <input type="text" placeholder="Name" class="w-full border p-2 text-sm rounded outline-none focus:ring-1 focus:ring-blue-500" />
+      <input type="email" placeholder="Email *" required class="w-full border p-2 text-sm rounded outline-none focus:ring-1 focus:ring-blue-500" />
+      <textarea placeholder="Message *" required rows="3" class="w-full border p-2 text-sm rounded outline-none focus:ring-1 focus:ring-blue-500"></textarea>
+      <button class="w-full bg-blue-900 text-white py-2 rounded font-bold hover:bg-blue-800 transition">SEND MESSAGE</button>
+    </form>
+  </div>
+</aside>
+
