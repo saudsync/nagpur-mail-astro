@@ -4,10 +4,19 @@ import sitemap from '@astrojs/sitemap';
 import tailwind from '@astrojs/tailwind';
 
 export default defineConfig({
-  site: 'https://yourdomain.com', // Replace with your Hostinger URL
-  integrations: [mdx(), sitemap(), tailwind()],
+  site: 'https://yourdomain.com',
+  integrations: [
+    mdx(), 
+    sitemap(), 
+    tailwind({
+      applyBaseStyles: false,
+    })
+  ],
   markdown: {
-    shikiConfig: { theme: 'one-dark-pro' }
+    shikiConfig: {
+      theme: 'one-dark-pro',
+      wrap: true,
+    },
   },
   output: 'static'
 });
