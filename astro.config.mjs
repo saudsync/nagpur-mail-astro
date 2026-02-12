@@ -1,10 +1,10 @@
-import { defineConfig } from 'astro:config';
+import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import tailwind from '@astrojs/tailwind';
 
 export default defineConfig({
-  site: 'https://yourdomain.com',
+  site: 'https://yourdomain.com', // Replace with your real domain
   integrations: [
     mdx(), 
     sitemap(), 
