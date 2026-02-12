@@ -1,0 +1,22 @@
+# Allow all search engines to crawl our site
+User-agent: *
+
+# Block technical and temporary folders
+Disallow: /npm/
+Disallow: /node_modules/
+Disallow: /dist/
+Disallow: /scripts/
+Disallow: /private/
+
+# Block specific file types that don't need indexing
+Disallow: /*.json$
+Disallow: /*.log$
+
+# Allow all other content including news and info pages
+Allow: /
+Allow: /posts/
+Allow: /info/
+
+# Link to your sitemap (Crucial for SEO and AdSense)
+Sitemap: https://nagpurmail.in/sitemap-index.xml
+
