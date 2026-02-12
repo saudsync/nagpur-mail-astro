@@ -1,28 +1,87 @@
 ---
-const { title, description } = Astro.props;
+const { title, description, image = '/og-image.jpg' } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 import { ViewTransitions } from 'astro:transitions';
 ---
-<html lang="en">
-<head>
-    <meta charset="UTF-8" /><meta name="viewport" content="width=device-width" />
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title} | Nagpur Mail</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
-    <ViewTransitions />
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-50 text-gray-900 antialiased">
-    <nav class="bg-white border-b sticky top-0 z-50 py-4">
-        <div class="max-w-6xl mx-auto px-4 flex justify-between items-center">
-            <a href="/" class="text-2xl font-black text-blue-900 tracking-tighter">NAGPUR MAIL</a>
-            <div id="search" class="hidden md:block w-48"></div>
-        </div>
-    </nav>
-    <main class="max-w-6xl mx-auto px-4 py-8"><slot /></main>
-    <footer class="bg-blue-950 text-white py-12 mt-12 text-center text-sm">
-        <p>© 2026 Nagpur Mail - News for Vidarbha</p>
-    </footer>
-</body>
-</html>
 
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(image, Astro.url)} />
+
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+
+    <ViewTransitions />
+    
+    <link href="/_pagefind/pagefind-ui.css" rel="stylesheet">
+    <script src="/_pagefind/pagefind-ui.js" is:inline></script>
+  </head>
+  <body class="bg-gray-50 text-gray-900 font-sans antialiased">
+    <nav class="border-b bg-white sticky top-0 z-50 shadow-sm">
+      <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+        <div class="flex items-center gap-6">
+          <a href="/" class="text-3xl font-black tracking-tighter text-blue-900 uppercase italic">Nagpur Mail</a>
+          <div class="hidden md:flex space-x-5 text-sm font-bold uppercase text-gray-600">
+            <a href="/category/city" class="hover:text-blue-700">City News</a>
+            <a href="/category/metro" class="hover:text-blue-700">Metro</a>
+            <a href="/category/business" class="hover:text-blue-700">Business</a>
+          </div>
+        </div>
+        <div id="search" class="hidden md:block w-64"></div>
+      </div>
+    </nav>
+
+    <main class="max-w-6xl mx-auto px-4 py-10">
+      <slot />
+    </main>
+
+    <footer class="bg-[#001f3f] text-white pt-16 pb-8">
+      <div class="max-w-6xl mx-auto px-4">
+        <div class="grid md:grid-cols-3 gap-12 mb-12">
+          <div>
+            <div class="bg-white text-blue-900 inline-block px-3 py-1 rounded font-bold text-xl mb-4">NM</div>
+            <p class="text-gray-400 text-sm">Your trusted source for news and updates across Nagpur and Vidarbha.</p>
+          </div>
+          <div class="flex flex-col gap-2 text-sm text-gray-300">
+            <h4 class="font-bold text-white uppercase mb-2">Links</h4>
+            <a href="/about">About Us</a>
+            <a href="/contact">Contact</a>
+            <a href="/privacy">Privacy Policy</a>
+          </div>
+          <div>
+            <h4 class="font-bold text-white uppercase mb-4">Social</h4>
+            <div class="flex gap-4">
+              <a href="#" class="hover:text-blue-400">FB</a>
+              <a href="#" class="hover:text-blue-400">TW</a>
+              <a href="/rss.xml" class="hover:text-orange-400">RSS</a>
+            </div>
+          </div>
+        </div>
+        <div class="border-t border-gray-800 pt-8 text-center text-xs text-gray-500 uppercase tracking-widest">
+          © 2026 Nagpur Mail - Built for Performance
+        </div>
+      </div>
+    </footer>
+
+    <script is:inline>
+      window.addEventListener('DOMContentLoaded', () => {
+        if (document.querySelector('#search')) {
+          new PagefindUI({ element: "#search", showSubResults: true, bundlePath: "/_pagefind/" });
+        }
+      });
+    </script>
+  </body>
+</html>
