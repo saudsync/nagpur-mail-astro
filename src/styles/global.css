@@ -46,14 +46,14 @@ a:hover { color: #4285f4; }
 .footer-links li { margin-bottom: 10px; font-size: 13px; text-transform: uppercase; font-weight: bold; }
 .footer-links a:hover { color: white; text-decoration: underline; }
 
-/* FOOTER SOCIAL ICONS */
-.footer-socials { display: flex; gap: 12px; margin-top: 15px; }
+/* FOOTER SOCIAL ICONS - UPDATED SIZE */
+.footer-socials { display: flex; gap: 10px; margin-top: 15px; }
 .social-icon { 
     display: flex; 
     align-items: center; 
     justify-content: center; 
-    width: 38px; 
-    height: 38px; 
+    width: 32px;  /* Reduced from 38px as requested */
+    height: 32px; /* Reduced from 38px as requested */
     border-radius: 4px; 
     color: white !important; 
     transition: 0.3s; 
@@ -64,3 +64,6 @@ a:hover { color: #4285f4; }
 .social-icon.tw { background-color: #000000; }
 .social-icon.yt { background-color: #ff0000; }
 .social-icon.rs { background-color: #f26522; }
+
+/* UTILITY CLASSES */
+.text-justify { text-align: justify; text-justify: inter-word; }
