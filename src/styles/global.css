@@ -4,21 +4,25 @@
 
 @layer base {
   body {
-    @apply bg-[#f4f7f9];
+    @apply bg-[#F4F7F9] text-[#333];
   }
 }
 
-/* Custom Header Styling to match your screenshot */
-.nav-link {
-  @apply text-[13px] font-bold uppercase tracking-tight hover:text-blue-700 transition-colors;
+/* Match your Blogger Header Style */
+.nav-shadow {
+  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
 }
 
-/* Prose overrides for better reading */
-.prose h1 { @apply text-blue-900 font-black tracking-tighter italic; }
-.prose p { @apply text-gray-800 leading-relaxed text-[17px]; }
-
-/* Sidebar widget styling */
-.widget-title {
-  @apply text-sm font-black border-b-2 border-blue-900 pb-1 mb-4 uppercase italic inline-block;
+.news-card {
+  @apply bg-white rounded-sm border-b-2 border-transparent hover:border-blue-600 transition-all duration-300;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 
+.sidebar-title {
+  @apply text-sm font-bold uppercase tracking-tight border-b-2 border-blue-900 pb-1 mb-4 inline-block;
+}
+
+/* Typography for Article Content */
+.prose h1 { @apply text-3xl font-black text-blue-950 mb-4 tracking-tighter; }
+.prose p { @apply text-[17px] leading-relaxed text-gray-800 mb-6; }
+  
