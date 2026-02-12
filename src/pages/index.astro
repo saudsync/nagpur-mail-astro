@@ -1,27 +1,39 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
-const posts = (await getCollection('blog')).sort((a,b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
----
-<BaseLayout title="Latest News" description="Breaking news from Nagpur and Vidarbha.">
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div class="lg:col-span-2 space-y-8">
-            {posts.map(post => (
-                <article class="border-b pb-6">
-                    <a href={`/posts/${post.slug}`} class="group">
-                        <h2 class="text-2xl font-bold group-hover:text-blue-700">{post.data.title}</h2>
-                        <p class="text-gray-600 mt-2 line-clamp-2">{post.data.description}</p>
-                    </a>
-                </article>
-            ))}
-        </div>
-        <aside class="bg-white p-6 border rounded">
-            <h3 class="font-bold border-b mb-4 pb-2">CATEGORIES</h3>
-            <ul class="text-blue-800 space-y-2">
-                <li><a href="/category/city">City News</a></li>
-                <li><a href="/category/metro">Metro Updates</a></li>
-            </ul>
-        </aside>
-    </div>
-</BaseLayout>
+import Sidebar from '../components/Sidebar.astro';
 
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+---
+
+<BaseLayout title="Nagpur News, Business & Updates" description="The leading news portal for Nagpur City and Vidarbha.">
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+    <div class="lg:col-span-2 space-y-12">
+      <h1 class="text-4xl font-black tracking-tighter border-b pb-4 italic text-blue-900 uppercase">Latest Stories</h1>
+      
+      {posts.map(post => (
+        <article class="group">
+          <a href={`/posts/${post.slug}`} class="grid md:grid-cols-5 gap-6">
+            <div class="md:col-span-2 overflow-hidden rounded-xl">
+               <img src={post.data.image} alt={post.data.title} class="aspect-video object-cover group-hover:scale-105 transition duration-500" />
+            </div>
+            <div class="md:col-span-3 flex flex-col justify-center">
+              <span class="text-xs font-bold text-blue-600 uppercase tracking-widest mb-2 italic">{post.data.category}</span>
+              <h2 class="text-2xl font-bold group-hover:text-blue-800 transition leading-tight">{post.data.title}</h2>
+              <p class="text-gray-600 mt-3 line-clamp-2 text-sm leading-relaxed">{post.data.description}</p>
+              <time class="text-[10px] text-gray-400 mt-4 uppercase font-semibold">
+                 {post.data.pubDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+              </time>
+            </div>
+          </a>
+        </article>
+      ))}
+    </div>
+
+    <div class="lg:col-span-1">
+      <Sidebar />
+    </div>
+  </div>
+</BaseLayout>
