@@ -20,16 +20,14 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          # The cache line must remain removed to avoid lock file errors
+          # IMPORTANT: We have removed 'cache: npm' to bypass the lock file requirement
 
       - name: Install dependencies
-        # This command allows the build to proceed without a package-lock.json
+        # This flag tells npm to build without needing a lock file
         run: npm install --no-package-lock
 
-      - name: Build with Pagefind Search
-        run: |
-          npm run build
-          npx pagefind --site dist
+      - name: Build
+        run: npm run build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
