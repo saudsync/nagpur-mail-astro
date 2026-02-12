@@ -1,0 +1,28 @@
+---
+const { title, description } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+import { ViewTransitions } from 'astro:transitions';
+---
+<html lang="en">
+<head>
+    <meta charset="UTF-8" /><meta name="viewport" content="width=device-width" />
+    <title>{title} | Nagpur Mail</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+    <ViewTransitions />
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-900 antialiased">
+    <nav class="bg-white border-b sticky top-0 z-50 py-4">
+        <div class="max-w-6xl mx-auto px-4 flex justify-between items-center">
+            <a href="/" class="text-2xl font-black text-blue-900 tracking-tighter">NAGPUR MAIL</a>
+            <div id="search" class="hidden md:block w-48"></div>
+        </div>
+    </nav>
+    <main class="max-w-6xl mx-auto px-4 py-8"><slot /></main>
+    <footer class="bg-blue-950 text-white py-12 mt-12 text-center text-sm">
+        <p>© 2026 Nagpur Mail - News for Vidarbha</p>
+    </footer>
+</body>
+</html>
+
