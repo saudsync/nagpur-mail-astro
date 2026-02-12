@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
-import BaseLayout from '../../layouts/BaseLayout.astro';
 import Sidebar from '../../components/Sidebar.astro';
+import '../../styles/global.css';
 
 export async function getStaticPaths() {
   const blogEntries = await getCollection('blog');
@@ -11,48 +11,114 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
-const { Content, headings } = await entry.render();
+const { Content } = await entry.render();
 ---
 
-<BaseLayout title={entry.data.title} description={entry.data.description} image={entry.data.image}>
-  <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
-    <div class="lg:col-span-2">
-      <article class="prose prose-blue max-w-none">
-        <header class="not-prose mb-10">
-          <div class="bg-blue-900 text-white text-[10px] font-bold uppercase px-3 py-1 inline-block mb-4">
-            {entry.data.category}
-          </div>
-          <h1 class="text-4xl md:text-5xl font-black leading-tight mb-6">{entry.data.title}</h1>
-          <div class="flex items-center gap-4 text-sm text-gray-500 border-y py-4 italic">
-            <span>By <strong>{entry.data.author}</strong></span>
-            <span>•</span>
-            <time>{entry.data.pubDate.toDateString()}</time>
-          </div>
-        </header>
-
-        <img src={entry.data.image} alt={entry.data.title} class="w-full rounded-2xl shadow-xl mb-10" data-pagefind-body data-pagefind-meta="image" />
-
-        <div data-pagefind-body class="post-body text-lg leading-relaxed text-gray-800">
-          <Content />
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{entry.data.title} | Nagpur Mail</title>
+</head>
+<body>
+    <div class="top-bar">Nagpur's #1 News Portal - Real Time Updates</div>
+    
+    <nav class="main-nav">
+        <div class="container nav-content">
+            <div class="logo">
+                <a href="/"><img src="/logo.png" alt="NAGPUR MAIL" style="height: 45px;"></a>
+            </div>
+            <div style="display: flex; gap: 15px; font-weight: 800; font-size: 11px; color: #002b5c; letter-spacing: -0.5px;">
+                <a href="/">HOME</a> <a href="#">CITY</a> <a href="#">METRO</a> <a href="#">CRIME</a>
+            </div>
         </div>
+    </nav>
 
-        <div class="not-prose mt-16 pt-8 border-t flex flex-wrap gap-4 items-center">
-          <span class="font-bold uppercase text-sm">Share this story:</span>
-          <a href="#" class="bg-blue-600 text-white px-4 py-2 rounded font-bold text-xs uppercase tracking-widest">Facebook</a>
-          <a href="#" class="bg-sky-400 text-white px-4 py-2 rounded font-bold text-xs uppercase tracking-widest">Twitter</a>
-          <a href="#" class="bg-green-500 text-white px-4 py-2 rounded font-bold text-xs uppercase tracking-widest">WhatsApp</a>
+    <div class="container">
+        <div class="main-wrapper">
+            <main style="background: white; padding: 20px; border: 1px solid #e1e8ed;">
+                <div style="margin-bottom: 10px;">
+                    <span style="background: #002b5c; color: white; font-size: 10px; font-weight: bold; padding: 4px 10px; text-transform: uppercase; font-style: italic;">
+                        {entry.data.category}
+                    </span>
+                </div>
+
+                <h1 style="font-size: 28px; md:font-size: 36px; color: #002b5c; font-weight: 900; text-transform: uppercase; font-style: italic; line-height: 1.1; margin-bottom: 20px;">
+                    {entry.data.title}
+                </h1>
+
+                <div style="display: flex; gap: 15px; font-size: 11px; color: #888; font-weight: bold; border-top: 1px solid #eee; border-bottom: 1px solid #eee; padding: 10px 0; margin-bottom: 25px; text-transform: uppercase;">
+                    <span>By <span style="color: #4285f4;">{entry.data.author}</span></span>
+                    <span>{entry.data.pubDate.toDateString()}</span>
+                </div>
+
+                <img src={entry.data.image} alt={entry.data.title} style="width: 100%; height: auto; margin-bottom: 30px; border-bottom: 3px solid #002b5c;" />
+
+                <div class="post-body-content">
+                    <Content />
+                </div>
+
+                <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee; display: flex; gap: 10px;">
+                    <span style="font-size: 12px; font-weight: bold; color: #999;">SHARE:</span>
+                    <div style="width: 30px; height: 30px; background: #3b5998; border-radius: 2px;"></div>
+                    <div style="width: 30px; height: 30px; background: #25d366; border-radius: 2px;"></div>
+                </div>
+            </main>
+
+            <Sidebar />
         </div>
-      </article>
     </div>
 
-    <div class="lg:col-span-1">
-      <Sidebar />
-    </div>
-  </div>
-</BaseLayout>
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <h3 class="footer-title">About Us</h3>
+                    <p style="font-size: 13px; line-height: 1.6;">Nagpur Mail is your dedicated news portal for the latest updates in and around the Orange City.</p>
+                </div>
+                <div>
+                    <h3 class="footer-title">Main Categories</h3>
+                    <ul class="footer-links">
+                        <li>City News</li>
+                        <li>Metro Updates</li>
+                        <li>Business</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="footer-title">Follow Us</h3>
+                    <div style="display: flex; gap: 10px;">
+                        <div style="width: 35px; height: 35px; background: #1e293b; border-radius: 50%;"></div>
+                        <div style="width: 35px; height: 35px; background: #1e293b; border-radius: 50%;"></div>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center; padding-top: 20px; font-size: 11px; color: #64748b; font-weight: bold; text-transform: uppercase;">
+                © 2026 NAGPUR MAIL - ALL RIGHTS RESERVED
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
 
 <style is:global>
-  .post-body h2 { @apply text-2xl font-black text-blue-900 mt-12 mb-4 uppercase italic border-b pb-2; }
-  .post-body p { @apply mb-6; }
-  .post-body ul { @apply list-disc pl-6 mb-6; }
+    /* This fixes the text appearance inside the article */
+    .post-body-content p {
+        margin-bottom: 20px;
+        font-size: 17px;
+        line-height: 1.7;
+        color: #444;
+    }
+    .post-body-content h2 {
+        font-size: 22px;
+        color: #002b5c;
+        font-weight: 900;
+        text-transform: uppercase;
+        margin-top: 30px;
+        margin-bottom: 15px;
+        font-style: italic;
+    }
+    .post-body-content ul {
+        margin-left: 20px;
+        margin-bottom: 20px;
+    }
 </style>
