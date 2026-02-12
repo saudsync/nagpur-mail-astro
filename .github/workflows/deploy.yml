@@ -20,9 +20,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          # We removed the 'cache' line to fix the error
+          # The cache line must remain removed to avoid lock file errors
 
       - name: Install dependencies
+        # This command allows the build to proceed without a package-lock.json
         run: npm install --no-package-lock
 
       - name: Build with Pagefind Search
