@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Sidebar from '../components/Sidebar.astro';
+import Footer from '../components/Footer.astro'; // Added this
 import '../styles/global.css';
 
 const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
@@ -17,7 +18,9 @@ const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueO
     
     <nav class="main-nav">
         <div class="container nav-content">
-            <div class="logo"><img src="/logo.png" alt="NAGPUR MAIL" style="height: 45px;"></div>
+            <div class="logo">
+                <a href="/"><img src="/logo.png" alt="NAGPUR MAIL" style="height: 45px;"></a>
+            </div>
             <div style="display: flex; gap: 15px; font-weight: 800; font-size: 11px; color: #002b5c; letter-spacing: -0.5px;">
                 <a href="/">HOME</a> <a href="#">CITY</a> <a href="#">METRO</a> <a href="#">CRIME</a>
             </div>
@@ -48,35 +51,5 @@ const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueO
         </div>
     </div>
 
-    <footer class="main-footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div>
-                    <h3 class="footer-title">About Us</h3>
-                    <p style="font-size: 13px; line-height: 1.6;">Nagpur Mail is your dedicated news portal for the latest updates in and around the Orange City. We bring you real-time news on City, Crime, Business, and Metro.</p>
-                </div>
-                <div>
-                    <h3 class="footer-title">Main Categories</h3>
-                    <ul class="footer-links">
-                        <li>City News</li>
-                        <li>Metro Updates</li>
-                        <li>Business</li>
-                        <li>Sports</li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="footer-title">Follow Us</h3>
-                    <div style="display: flex; gap: 10px;">
-                        <div style="width: 35px; height: 35px; background: #1e293b; border-radius: 50%;"></div>
-                        <div style="width: 35px; height: 35px; background: #1e293b; border-radius: 50%;"></div>
-                        <div style="width: 35px; height: 35px; background: #1e293b; border-radius: 50%;"></div>
-                    </div>
-                </div>
-            </div>
-            <div style="text-align: center; padding-top: 20px; font-size: 11px; color: #64748b; font-weight: bold; text-transform: uppercase;">
-                © 2026 NAGPUR MAIL - ALL RIGHTS RESERVED
-            </div>
-        </div>
-    </footer>
-</body>
+    <Footer /> </body>
 </html>
