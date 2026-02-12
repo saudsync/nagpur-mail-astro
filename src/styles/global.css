@@ -1,28 +1,37 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-@layer base {
-  body {
-    @apply bg-[#F4F7F9] text-[#333];
-  }
+/* Reset and Base */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { 
+    background-color: #f4f7f9; 
+    font-family: 'Arial', sans-serif; 
+    color: #333; 
+    line-height: 1.6;
 }
 
-/* Match your Blogger Header Style */
-.nav-shadow {
-  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
-}
+/* Header & Nav */
+.top-bar { background: #002b5c; color: white; text-align: center; padding: 5px; font-size: 10px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
+.main-nav { background: white; border-bottom: 1px solid #ddd; padding: 15px 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+.container { max-width: 1100px; margin: 0 auto; padding: 0 15px; }
+.nav-content { display: flex; justify-content: space-between; align-items: center; }
+.logo img { height: 45px; }
 
-.news-card {
-  @apply bg-white rounded-sm border-b-2 border-transparent hover:border-blue-600 transition-all duration-300;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-}
+/* Layout Grid */
+.main-wrapper { display: grid; grid-template-columns: 1fr; gap: 30px; margin-top: 30px; }
+@media (min-width: 992px) { .main-wrapper { grid-template-columns: 2fr 1fr; } }
 
-.sidebar-title {
-  @apply text-sm font-bold uppercase tracking-tight border-b-2 border-blue-900 pb-1 mb-4 inline-block;
-}
+/* News Cards */
+.news-card { background: white; border: 1px solid #e1e8ed; margin-bottom: 25px; display: flex; flex-direction: column; transition: 0.3s; }
+.news-card:hover { border-color: #002b5c; }
+@media (min-width: 768px) { .news-card { flex-direction: row; } }
 
-/* Typography for Article Content */
-.prose h1 { @apply text-3xl font-black text-blue-950 mb-4 tracking-tighter; }
-.prose p { @apply text-[17px] leading-relaxed text-gray-800 mb-6; }
-  
+.card-image { flex: 1; min-height: 200px; background-size: cover; background-position: center; }
+.card-content { flex: 2; padding: 20px; }
+.category-tag { background: #002b5c; color: white; font-size: 10px; font-weight: bold; padding: 3px 8px; text-transform: uppercase; font-style: italic; display: inline-block; margin-bottom: 10px; }
+.card-title { font-size: 22px; color: #002b5c; font-weight: 900; text-transform: uppercase; font-style: italic; margin-bottom: 10px; text-decoration: none; display: block; }
+
+/* Sidebar Widgets */
+.widget { background: white; border: 1px solid #e1e8ed; padding: 20px; margin-bottom: 30px; }
+.widget-title { font-size: 14px; font-weight: 900; color: #002b5c; text-transform: uppercase; border-bottom: 2px solid #002b5c; padding-bottom: 5px; margin-bottom: 15px; font-style: italic; display: inline-block; }
+
+/* Notice Widget */
+.notice-box { border-top: 4px solid #ff8c00; background: white; padding: 15px; }
+.notice-header { background: #ff8c00; color: white; font-size: 11px; font-weight: bold; text-align: center; padding: 5px; text-transform: uppercase; margin-bottom: 10px; }
