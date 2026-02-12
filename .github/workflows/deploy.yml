@@ -20,14 +20,15 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          # IMPORTANT: We have removed 'cache: npm' to bypass the lock file requirement
 
       - name: Install dependencies
-        # This flag tells npm to build without needing a lock file
-        run: npm install --no-package-lock
+        # The --legacy-peer-deps flag forces the install even with version conflicts
+        run: npm install --no-package-lock --legacy-peer-deps
 
-      - name: Build
-        run: npm run build
+      - name: Build with Pagefind Search
+        run: |
+          npm run build
+          npx pagefind --site dist
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
