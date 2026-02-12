@@ -1,6 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Sidebar from '../components/Sidebar.astro'; // ADD THIS LINE
+
 const posts = (await getCollection('blog')).sort((a,b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 <BaseLayout title="Nagpur Mail | Real-Time Updates" description="Latest news from Nagpur city.">
@@ -15,17 +17,10 @@ const posts = (await getCollection('blog')).sort((a,b) => b.data.pubDate.valueOf
                         <h2 class="text-[18px] md:text-[22px] font-black text-[#002b5c] leading-tight mb-2 uppercase tracking-tighter italic">
                             <a href={`/posts/${post.slug}`}>{post.data.title}</a>
                         </h2>
-                        <div class="flex items-center gap-2 text-[10px] text-gray-400 font-bold uppercase mb-3">
-                            <span>By <span class="text-blue-700">{post.data.author}</span></span>
-                            <span>•</span>
-                            <time>{post.data.pubDate.toDateString()}</time>
-                        </div>
-                        <p class="text-gray-600 text-[13px] leading-relaxed line-clamp-2">{post.data.description}</p>
+                        <p class="text-gray-600 text-[13px] line-clamp-2">{post.data.description}</p>
                     </div>
                 </article>
             ))}
-            
-            <button class="w-full py-2 bg-[#4285F4] text-white text-[11px] font-black uppercase italic rounded-sm">+ Load More</button>
         </div>
 
         <div class="lg:col-span-4">
