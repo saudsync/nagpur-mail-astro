@@ -22,13 +22,12 @@ jobs:
           node-version: 20
 
       - name: Install dependencies
-        # The --legacy-peer-deps flag forces the install even with version conflicts
+        # This keeps the bypass you need for browser-based file creation
         run: npm install --no-package-lock --legacy-peer-deps
 
-      - name: Build with Pagefind Search
-        run: |
-          npm run build
-          npx pagefind --site dist
+      - name: Build
+        # This runs the build script defined in your package.json
+        run: npm run build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
