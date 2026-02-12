@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-[#f4f7f9];
+  }
+}
+
+/* Custom Header Styling to match your screenshot */
+.nav-link {
+  @apply text-[13px] font-bold uppercase tracking-tight hover:text-blue-700 transition-colors;
+}
+
+/* Prose overrides for better reading */
+.prose h1 { @apply text-blue-900 font-black tracking-tighter italic; }
+.prose p { @apply text-gray-800 leading-relaxed text-[17px]; }
+
+/* Sidebar widget styling */
+.widget-title {
+  @apply text-sm font-black border-b-2 border-blue-900 pb-1 mb-4 uppercase italic inline-block;
+}
+
