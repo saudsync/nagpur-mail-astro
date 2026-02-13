@@ -1,10 +1,17 @@
 ---
 import { getCollection } from 'astro:content';
 import Sidebar from '../components/Sidebar.astro';
-import Footer from '../components/Footer.astro'; // Added this
+import Footer from '../components/Footer.astro';
 import '../styles/global.css';
 
-const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+// 1. Fetch all posts and sort them
+const allPosts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+// 2. Limit to exactly 5 posts for the home screen
+const posts = allPosts.slice(0, 5);
+
+// 3. Check if there are more than 5 posts to determine if we show the button
+const showReadMore = allPosts.length > 5;
 ---
 
 <html lang="en">
@@ -45,11 +52,21 @@ const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueO
                         </div>
                     </article>
                 ))}
+
+                {/* 4. The "Read More" button for the pagination cycle */}
+                {showReadMore && (
+                    <div style="margin-top: 30px; text-align: center;">
+                        <a href="/blog/2" style="background: #002b5c; color: white; padding: 12px 25px; text-decoration: none; font-weight: bold; border-radius: 4px; display: inline-block; font-size: 13px; text-transform: uppercase;">
+                            Read More Posts →
+                        </a>
+                    </div>
+                )}
             </main>
 
             <Sidebar />
         </div>
     </div>
 
-    <Footer /> </body>
+    <Footer /> 
+</body>
 </html>
