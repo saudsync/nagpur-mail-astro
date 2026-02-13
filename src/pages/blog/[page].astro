@@ -1,10 +1,10 @@
 ---
 import { getCollection } from 'astro:content';
+import Navigation from '../../components/Navigation.astro'; // Import here
 import Sidebar from '../../components/Sidebar.astro';
 import Footer from '../../components/Footer.astro';
 import '../../styles/global.css';
 
-// This function tells Astro how to split your posts into pages of 5
 export async function getStaticPaths({ paginate }) {
   const allPosts = (await getCollection('blog', ({ data }) => {
     return data.draft !== true;
@@ -13,7 +13,6 @@ export async function getStaticPaths({ paginate }) {
   return paginate(allPosts, { pageSize: 5 });
 }
 
-// Get the data for the current page
 const { page } = Astro.props;
 ---
 
@@ -24,22 +23,14 @@ const { page } = Astro.props;
     <title>Nagpur Mail | Page {page.currentPage}</title>
 </head>
 <body>
-    <div class="top-bar">Nagpur's #1 News Portal - Archive</div>
+    <div class="top-bar">Nagpur's #1 News Portal</div>
     
-    <nav class="main-nav">
-        <div class="container nav-content">
-            <div class="logo">
-                <a href="/"><img src="/logo.png" alt="NAGPUR MAIL" style="height: 45px;"></a>
-            </div>
-        </div>
-    </nav>
-
-    <div class="container">
+    <Navigation /> <div class="container">
         <div class="main-wrapper">
             <main>
                 <div style="border-bottom: 2px solid #002b5c; margin-bottom: 20px;">
                     <h2 style="background: #002b5c; color: white; display: inline-block; padding: 5px 15px; font-size: 14px; text-transform: uppercase;">
-                        More Stories (Page {page.currentPage})
+                        Latest Stories (Page {page.currentPage})
                     </h2>
                 </div>
 
@@ -49,7 +40,7 @@ const { page } = Astro.props;
                         <div class="card-content">
                             <span style="color: #4285f4; font-size: 10px; font-weight: 900; text-transform: uppercase;">{post.data.category}</span>
                             <a href={`/posts/${post.slug}`} class="card-title">{post.data.title}</a>
-                            <p style="font-size: 13px; color: #555; line-height: 1.4;">{post.data.description}</p>
+                            <p style="font-size: 13px; color: #555;">{post.data.description}</p>
                             <div style="font-size: 10px; margin-top: 10px; color: #999;">{post.data.pubDate.toDateString()}</div>
                         </div>
                     </article>
