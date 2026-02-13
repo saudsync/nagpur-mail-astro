@@ -1,0 +1,67 @@
+---
+/* Navigation Component for Nagpur Mail */
+---
+<nav class="main-nav">
+    <div class="container nav-content">
+        <div class="logo">
+            <a href="/"><img src="/logo.png" alt="NAGPUR MAIL" style="height: 45px;"></a>
+        </div>
+        
+        <div class="desktop-menu">
+            <a href="/">HOME</a>
+            <a href="#">CITY</a>
+            <a href="#">BUSINESS</a>
+            <a href="#">EDUCATION</a>
+            <a href="#">HEALTH</a>
+            <a href="#">VIDARBHA</a>
+        </div>
+
+        <button id="menu-toggle" class="hamburger">☰</button>
+    </div>
+
+    <div id="mobile-sidebar" class="sidebar-menu">
+        <div class="sidebar-header">
+            <button id="menu-close">&times;</button>
+        </div>
+        <div class="sidebar-links">
+            <a href="/">Home</a>
+            <a href="#">City</a>
+            <a href="#">Business</a>
+            <a href="#">Education</a>
+            <a href="#">Health</a>
+            <a href="#">Vidarbha</a>
+        </div>
+    </div>
+</nav>
+
+<script is:inline>
+    const btn = document.getElementById('menu-toggle');
+    const close = document.getElementById('menu-close');
+    const sidebar = document.getElementById('mobile-sidebar');
+
+    btn.onclick = () => sidebar.classList.add('active');
+    close.onclick = () => sidebar.classList.remove('active');
+</script>
+
+<style>
+    .nav-content { display: flex; justify-content: space-between; align-items: center; }
+    .desktop-menu { display: flex; gap: 15px; font-weight: 800; font-size: 11px; color: #002b5c; }
+    .desktop-menu a { text-decoration: none; color: inherit; }
+    .hamburger { display: none; background: none; border: none; font-size: 28px; color: #002b5c; cursor: pointer; }
+
+    /* Sidebar Mobile Styles */
+    .sidebar-menu { 
+        position: fixed; top: 0; left: -100%; width: 80%; height: 100%; 
+        background: white; z-index: 9999; transition: 0.3s; padding: 20px;
+        box-shadow: 2px 0 10px rgba(0,0,0,0.2);
+    }
+    .sidebar-menu.active { left: 0; }
+    .sidebar-links { display: flex; flex-direction: column; gap: 20px; margin-top: 30px; font-weight: bold; }
+    .sidebar-links a { text-decoration: none; color: #333; font-size: 18px; }
+
+    @media (max-width: 768px) {
+        .desktop-menu { display: none; }
+        .hamburger { display: block; }
+    }
+</style>
+
