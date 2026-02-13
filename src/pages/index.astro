@@ -4,13 +4,15 @@ import Sidebar from '../components/Sidebar.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
 
-// 1. Fetch all posts and sort them
-const allPosts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+// 1. Fetch all posts, filter out drafts, and sort by date (newest first)
+const allPosts = (await getCollection('blog', ({ data }) => {
+  return data.draft !== true; 
+})).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
-// 2. Limit to exactly 5 posts for the home screen
+// 2. Limit the display to the first 5 posts for the Home Screen
 const posts = allPosts.slice(0, 5);
 
-// 3. Check if there are more than 5 posts to determine if we show the button
+// 3. Determine if we should show the "Read More" button
 const showReadMore = allPosts.length > 5;
 ---
 
@@ -43,7 +45,7 @@ const showReadMore = allPosts.length > 5;
 
                 {posts.map(post => (
                     <article class="news-card">
-                        <div class="card-image" style={`background-image: url(${post.data.image})`}></div>
+                        <div class="card-image" style={`background-image: url(${post.data.image || post.data.heroImage})`}></div>
                         <div class="card-content">
                             <span style="color: #4285f4; font-size: 10px; font-weight: 900; text-transform: uppercase;">{post.data.category}</span>
                             <a href={`/posts/${post.slug}`} class="card-title">{post.data.title}</a>
@@ -53,11 +55,10 @@ const showReadMore = allPosts.length > 5;
                     </article>
                 ))}
 
-                {/* 4. The "Read More" button for the pagination cycle */}
                 {showReadMore && (
-                    <div style="margin-top: 30px; text-align: center;">
-                        <a href="/blog/2" style="background: #002b5c; color: white; padding: 12px 25px; text-decoration: none; font-weight: bold; border-radius: 4px; display: inline-block; font-size: 13px; text-transform: uppercase;">
-                            Read More Posts →
+                    <div style="margin-top: 40px; text-align: center; border-top: 1px solid #eee; pt-20px;">
+                        <a href="/blog/2" style="background: #002b5c; color: white; padding: 14px 30px; text-decoration: none; font-weight: bold; border-radius: 5px; display: inline-block; font-size: 12px; letter-spacing: 1px; transition: 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                            READ MORE POSTS →
                         </a>
                     </div>
                 )}
