@@ -1,18 +1,15 @@
 ---
 import { getCollection } from 'astro:content';
+import Navigation from '../components/Navigation.astro'; // Modular Navigation
 import Sidebar from '../components/Sidebar.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
 
-// 1. Fetch all posts, filter out drafts, and sort by date (newest first)
 const allPosts = (await getCollection('blog', ({ data }) => {
   return data.draft !== true; 
 })).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
-// 2. Limit the display to the first 5 posts for the Home Screen
 const posts = allPosts.slice(0, 5);
-
-// 3. Determine if we should show the "Read More" button
 const showReadMore = allPosts.length > 5;
 ---
 
@@ -25,18 +22,7 @@ const showReadMore = allPosts.length > 5;
 <body>
     <div class="top-bar">Nagpur's #1 News Portal - Real Time Updates</div>
     
-    <nav class="main-nav">
-        <div class="container nav-content">
-            <div class="logo">
-                <a href="/"><img src="/logo.png" alt="NAGPUR MAIL" style="height: 45px;"></a>
-            </div>
-            <div style="display: flex; gap: 15px; font-weight: 800; font-size: 11px; color: #002b5c; letter-spacing: -0.5px;">
-                <a href="/">HOME</a> <a href="#">CITY</a> <a href="#">BUSINESS</a> <a href="#">EDUCATION</a> <a href="#">LIFESTYLE</a> <a href="#">ENTERTAINMENT</a>
-            </div>
-        </div>
-    </nav>
-
-    <div class="container">
+    <Navigation /> <div class="container">
         <div class="main-wrapper">
             <main>
                 <div style="border-bottom: 2px solid #002b5c; margin-bottom: 20px;">
@@ -56,8 +42,8 @@ const showReadMore = allPosts.length > 5;
                 ))}
 
                 {showReadMore && (
-                    <div style="margin-top: 40px; text-align: center; border-top: 1px solid #eee; pt-20px;">
-                        <a href="/blog/2" style="background: #002b5c; color: white; padding: 14px 30px; text-decoration: none; font-weight: bold; border-radius: 5px; display: inline-block; font-size: 12px; letter-spacing: 1px; transition: 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                    <div style="margin-top: 40px; text-align: center;">
+                        <a href="/blog/2" style="background: #002b5c; color: white; padding: 14px 30px; text-decoration: none; font-weight: bold; border-radius: 5px; display: inline-block; font-size: 12px; letter-spacing: 1px;">
                             READ MORE POSTS →
                         </a>
                     </div>
